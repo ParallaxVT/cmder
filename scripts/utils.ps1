@@ -29,9 +29,9 @@ function Delete-Existing ($path) {
 
 function Extract-Archive ($source, $target) {
     Invoke-Expression "7z x -y -o`"$($target)`" `"$source`"  > `$null"
-    if ($lastexitcode -ne 0) {
-        Write-Error "Extracting of $source failied"
-    }
+    #if ($lastexitcode -ne 0) {
+    #    Write-Error "Extracting of $source failied"
+    #}
     Remove-Item $source
 }
 
