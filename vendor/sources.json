@@ -2,7 +2,7 @@
     {
         "name": "git-for-windows",
         "version": "v2.10.2.windows.1",
-        "url": "https://github.com/git-for-windows/git/releases/download/v2.10.2.windows.1/PortableGit-2.10.2-32-bit.7z.exe"
+        "url": "https://github.com/git-for-windows/git/releases/download/v2.10.2.windows.1/PortableGit-2.10.2-64-bit.7z.exe"
     },
     {
         "name": "clink",
