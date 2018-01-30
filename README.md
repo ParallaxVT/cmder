@@ -157,7 +157,7 @@ If you want to run SSH agent on startup, include the line `@call "%GIT_INSTALL_R
 1. Click the '+' button to add a task.
 1. Name the new task in the top text box.
 1. Provide task parameters, this is optional.
-1. Add ```cmd /c "[path_to_external_env]\bin\bash --login -i" -new_console:d:%USERPROFILE%``` to the `Commands` text box.
+1. Add ```cmd /c "[path_to_external_env]\bin\bash --login -i" -new_console``` to the `Commands` text box.
 
 Recommended Optional Steps:
 
@@ -175,6 +175,34 @@ Uncomment and edit the below line in the script to use Cmder config even when la
 ```
 # CMDER_ROOT=${USERPROFILE}/cmder  # This is not required if launched from Cmder.
 ```
+
+## Upgrading
+
+The process of upgrading Cmder depends on the version/build you are currently running
+
+If you have a `[cmder_root]/config/user-conemu.xml`, you are running a newer version of Cmder, follow the below process: 
+
+1. Exit all Cmder sessions and relaunch `[cmder_root]/cmder.exe`, this backs up your existing `[cmder_root]/vendor/conemu-maximus5/conemu.xml` to `[cmder_root]/config/user-conemu.xml`.
+   
+   * The `[cmder_root]/config/user-conemu.xml` contains any custom settings you have made using the 'Setup Tasks' settings dialog.
+
+2. Exit all Cmder sessions and backup any files you have manually edited under `[cmder_root]/vendor`.
+
+   * Editing files under `[cmder_root]/vendor` is not recommended since you will need to re-apply these changes after any upgrade.  All user customizations should go in '[cmder_root]/config' folder.
+
+3.  Delete the `[cmder_root]/vendor` folder.
+4.  Extract the new `cmder.zip` or `cmder_mini.zip` into `[cmder_root]/` overwriting all files when prompted.
+
+If you do not have a `[cmder_root]/config/user-conemu.xml`, you are running an older version of cmder, follow the below process: 
+
+1. Exit all Cmder sessions and backup `[cmder_root]/vendor/conemu-maximus5/conemu.xml` to `[cmder_root]/config/user-conemu.xml`.
+
+2. Backup any files you have manually edited under `[cmder_root]/vendor`.
+
+   * Editing files under `[cmder_root]/vendor` is not recommended since you will need to re-apply these changes after any upgrade.  All user customizations should go in '[cmder_root]/config' folder.
+
+3.  Delete the `[cmder_root]/vendor` folder.
+4.  Extract the new `cmder.zip` or `cmder_mini.zip` into `[cmder_root]/` overwriting all files when prompted.
 
 ## Current development builds
 

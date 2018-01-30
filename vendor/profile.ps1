@@ -4,18 +4,22 @@
 # !!! THIS FILE IS OVERWRITTEN WHEN CMDER IS UPDATED
 # !!! Use "%CMDER_ROOT%\config\user-profile.ps1" to add your own startup commands
 
-# We do this for Powershell as Admin Sessions because CMDER_ROOT is not beng set.
-if (! $ENV:CMDER_ROOT ) {
-    $ENV:CMDER_ROOT = resolve-path( $ENV:ConEmuDir + "\..\.." )
-}
-
-# Remove trailing '\'
-$ENV:CMDER_ROOT = (($ENV:CMDER_ROOT).trimend("\"))
-
 # Compatibility with PS major versions <= 2
 if(!$PSScriptRoot) {
     $PSScriptRoot = Split-Path $Script:MyInvocation.MyCommand.Path
 }
+
+# We do this for Powershell as Admin Sessions because CMDER_ROOT is not beng set.
+if (! $ENV:CMDER_ROOT ) {
+    if ( $ENV:ConEmuDir ) {
+        $ENV:CMDER_ROOT = resolve-path( $ENV:ConEmuDir + "\..\.." )
+    } else {
+        $ENV:CMDER_ROOT = resolve-path( $PSScriptRoot + "\.." )
+    }
+}
+
+# Remove trailing '\'
+$ENV:CMDER_ROOT = (($ENV:CMDER_ROOT).trimend("\"))
 
 # do not load bundled psget if a module installer is already available
 # -> recent PowerShell versions include PowerShellGet out of the box
@@ -76,13 +80,6 @@ function checkGit($Path) {
     }
 }
 
-# Move to the wanted location
-# This is either a env variable set by the user or the result of
-# cmder.exe setting this variable due to a commandline argument or a "cmder here"
-if ( $ENV:CMDER_START ) {
-    Set-Location -Path "$ENV:CMDER_START"
-}
-
 if (Get-Module PSReadline -ErrorAction "SilentlyContinue") {
     Set-PSReadlineOption -ExtraPromptLineCount 1
 }
@@ -127,7 +124,7 @@ if (-not (test-path "$ENV:CMDER_ROOT\config\profile.d")) {
 }
 
 pushd $ENV:CMDER_ROOT\config\profile.d
-foreach ($x in ls *.ps1) {
+foreach ($x in Get-ChildItem *.ps1) {
   # write-host write-host Sourcing $x
   . $x
 }
